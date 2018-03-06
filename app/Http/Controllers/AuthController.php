@@ -1,6 +1,8 @@
 <?php
 	namespace App\Http\Controllers;
 
+	use Illuminate\Http\Request;
+
 	class AuthController extends Controller {
 		/**
 		 * @return void
@@ -10,10 +12,20 @@
 		}
 
 		/**
+		 * @param Request $request
+		 *
 		 * @return \Illuminate\Http\JsonResponse
 		 */
-		public function login() {
-			$credentials = request(['email', 'password']);
+		public function login(Request $request) {
+			$this->validate($request, [
+				'email' => 'required',
+				'password' => 'required'
+			]);
+
+			$credentials = [
+				'email' => $request->get('email'),
+				'password' => $request->get('password'),
+			];
 
 			if (!$token = auth()->attempt($credentials))
 				return response()->json(['error' => 'Unauthorized'], 401);

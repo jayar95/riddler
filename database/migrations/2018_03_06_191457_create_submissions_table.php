@@ -4,22 +4,22 @@
 	use Illuminate\Database\Schema\Blueprint;
 	use Illuminate\Database\Migrations\Migration;
 
-	class CreateUsersTable extends Migration {
+	class CreateSubmissionsTable extends Migration {
 		/**
 		 * Run the migrations.
 		 *
 		 * @return void
 		 */
 		public function up() {
-			Schema::create('users', function(Blueprint $table) {
+			Schema::create('submissions', function(Blueprint $table) {
+				//structure
 				$table->increments('id');
-				$table->string('name');
-				$table->string('email')->unique();
-				$table->string('password');
-				$table->boolean('staff')->default(0);
-				$table->boolean('approved')->default(0);
-				$table->rememberToken();
+				$table->integer('user_id')->unsigned()->nullable(false);
+				$table->text('answer', 255)->nullable(false);
 				$table->timestamps()->useCurrent();
+
+				//relationships
+				$table->foreign('user_id')->references('id')->on('users');
 			});
 		}
 
@@ -29,6 +29,6 @@
 		 * @return void
 		 */
 		public function down() {
-			Schema::dropIfExists('users');
+			Schema::dropIfExists('submissions');
 		}
 	}
