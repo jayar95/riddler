@@ -10,3 +10,5 @@
 	});
 
 	Route::post('register', 'RegisterController@register');
+
+	Route::post('riddle', 'RiddleController@create');

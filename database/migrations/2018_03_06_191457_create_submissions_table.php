@@ -16,7 +16,7 @@
 				$table->increments('id');
 				$table->integer('user_id')->unsigned()->nullable(false);
 				$table->text('answer', 255)->nullable(false);
-				$table->timestamps()->useCurrent();
+				$table->timestamps();
 
 				//relationships
 				$table->foreign('user_id')->references('id')->on('users');

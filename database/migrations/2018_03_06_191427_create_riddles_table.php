@@ -15,9 +15,9 @@
 				$table->increments('id');
 				$table->longText('content')->nullable(false);
 				$table->string('title', 255)->nullable(false);
-				$table->integer('winner')->unsigned()->nullable(false);
+				$table->integer('winner')->unsigned()->nullable(true);
 				$table->softDeletes();
-				$table->timestamps()->useCurrent();
+				$table->timestamps();
 
 				//relationships'
 				$table->foreign('winner')->references('id')->on('users');
