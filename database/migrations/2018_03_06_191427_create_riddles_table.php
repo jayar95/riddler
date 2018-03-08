@@ -16,6 +16,7 @@
 				$table->longText('content')->nullable(false);
 				$table->string('title', 255)->nullable(false);
 				$table->integer('winner')->unsigned()->nullable(true);
+				$table->integer('max_submission_count')->unsigned();
 				$table->softDeletes();
 				$table->timestamps();
 

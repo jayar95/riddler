@@ -27,4 +27,15 @@
 		public function winner() {
 			return $this->hasOne('App\User', 'winner');
 		}
+
+		/**
+		 * @param User $user
+		 *
+		 * @return int
+		 */
+		public function getSubmissionCountByUser(User $user): int {
+			return Submission::where('riddle_id', $this->id)
+				->where('user_id', $user->id)
+				->count();
+		}
 	}

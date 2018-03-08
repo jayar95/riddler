@@ -1,8 +1,6 @@
 <?php
 	use App\Http\Resources\RiddleResource;
 	use App\Riddle;
-	use App\Http\Resources\SubmissionResource;
-	use App\Submission;
 
 	Route::group([
 		'middleware' => 'api',
@@ -26,10 +24,6 @@
 
 	Route::delete('riddle/{riddle}', 'RiddleController@delete')->middleware('staff.check');
 
-	Route::post('riddle/{riddle}/submissions', 'SubmissionController@create')->middleware('staff.check');
+	Route::post('riddle/{riddle}/submissions', 'RiddleController@createSubmission')->middleware('staff.check');
 
-	Route::get('riddle/{riddle}/submissions', function() {
-		return new SubmissionResource(Submission::all());
-	})->middleware('staff.check');
-
-	Route::get('riddle/{riddle}/my-submissions');
+	Route::post('riddle/{riddle}/riddle-answer')->middleware('staff.check');

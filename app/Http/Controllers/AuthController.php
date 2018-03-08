@@ -2,10 +2,11 @@
 	namespace App\Http\Controllers;
 
 	use Illuminate\Http\Request;
+	use Illuminate\Http\JsonResponse;
 
 	class AuthController extends Controller {
 		/**
-		 * @return void
+		 * AuthController constructor.
 		 */
 		public function __construct() {
 			$this->middleware('auth:api', ['except' => ['login']]);
@@ -14,9 +15,9 @@
 		/**
 		 * @param Request $request
 		 *
-		 * @return \Illuminate\Http\JsonResponse
+		 * @return JsonResponse
 		 */
-		public function login(Request $request) {
+		public function login(Request $request): JsonResponse {
 			$this->validate($request, [
 				'email' => 'required',
 				'password' => 'required'
@@ -34,16 +35,16 @@
 		}
 
 		/**
-		 * @return \Illuminate\Http\JsonResponse
+		 * @return JsonResponse
 		 */
-		public function me() {
+		public function me(): JsonResponse {
 			return response()->json(auth()->user());
 		}
 
 		/**
-		 * @return \Illuminate\Http\JsonResponse
+		 * @return JsonResponse
 		 */
-		public function logout() {
+		public function logout(): JsonResponse {
 			auth()->logout();
 
 			return response()->json([
@@ -52,18 +53,18 @@
 		}
 
 		/**
-		 * @return \Illuminate\Http\JsonResponse
+		 * @return JsonResponse
 		 */
-		public function refresh() {
+		public function refresh(): JsonResponse {
 			return $this->respondWithToken(auth()->refresh());
 		}
 
 		/**
 		 * @param  string $token
 		 *
-		 * @return \Illuminate\Http\JsonResponse
+		 * @return JsonResponse
 		 */
-		protected function respondWithToken($token) {
+		protected function respondWithToken($token): JsonResponse {
 			return response()->json([
 				'access_token' => $token,
 				'token_type' => 'bearer',

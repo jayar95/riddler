@@ -1,5 +1,4 @@
 <?php
-
 	namespace App\Http\Controllers;
 
 	use App\User;
@@ -12,9 +11,7 @@
 		use RegistersUsers;
 
 		/**
-		 * Create a new controller instance.
-		 *
-		 * @return void
+		 * RegisterController constructor.
 		 */
 		public function __construct() {
 			$this->middleware('guest');

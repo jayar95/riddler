@@ -2,6 +2,8 @@
 	namespace App\Http\Controllers;
 
 	use App\Riddle;
+	use App\RiddleAnswer;
+	use App\Submission;
 	use Illuminate\Http\JsonResponse;
 	use Illuminate\Http\Request;
 
@@ -21,6 +23,9 @@
 			'answer' => 'required',
 		];
 
+		/**
+		 * RiddleController constructor.
+		 */
 		public function __construct() {
 			$this->middleware('auth:api');
 		}
@@ -94,6 +99,11 @@
 		public function createSubmission(Request $request, Riddle $riddle): JsonResponse {
 			$this->validate($request, $this->validateSubmissionFields);
 
+			if ($riddle->maxSubmissionCount === $riddle->getSubmissionCountByUser(auth()->user()))
+				return response()->json([
+					'message' => 'Max submission limit reached.',
+				], 200);
+
 			$submission = Submission::create([
 				'answer' => $request->get('answer'),
 				'user_id' => auth()->user()->id,
@@ -101,5 +111,22 @@
 			]);
 
 			return response()->json($submission->toJson(), 201);
+		}
+
+		/**
+		 * @param Request $request
+		 * @param Riddle  $riddle
+		 *
+		 * @return JsonResponse
+		 */
+		public function createAnswer(Request $request, Riddle $riddle): JsonResponse {
+			$this->validate($request, ['answer' => 'required']);
+
+			$answer = RiddleAnswer::create([
+				'answer' => $request->get('answer'),
+				'riddle_id' => $riddle->id,
+			]);
+
+			return response()->json($answer->toJson(), 201);
 		}
 	}
