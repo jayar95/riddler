@@ -6,7 +6,8 @@
 	class Submission extends Model {
 		protected $fillable = [
 			'user_id',
-			'answer'
+			'answer',
+			'riddle_id'
 		];
 
 		public function user() {
