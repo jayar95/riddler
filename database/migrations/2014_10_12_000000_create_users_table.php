@@ -19,7 +19,7 @@
 				$table->boolean('staff')->default(0);
 				$table->boolean('approved')->default(0);
 				$table->rememberToken();
-				$table->timestamps()->useCurrent();
+				$table->timestamps();
 			});
 		}
 
