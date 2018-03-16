@@ -1,6 +1,7 @@
 <?php
 	namespace App\Http\Controllers;
 
+	use App\Events\SuccessfulRiddleSubmission;
 	use App\Riddle;
 	use App\RiddleAnswer;
 	use App\Submission;
@@ -110,7 +111,21 @@
 				'riddle_id' => $riddle->id,
 			]);
 
-			return response()->json($submission->toJson(), 201);
+			$answerCorrect = false;
+			if ($answers = $riddle->answers)
+				foreach ($answers as $riddleAnswer)
+					if ($riddleAnswer->answer === $submission->answer) {
+						event(new SuccessfulRiddleSubmission($riddle, auth()->user()));
+
+						$answerCorrect = true;
+
+						break;
+					}
+
+			return response()->json([
+				'submission' => $submission->toArray(),
+				'answerCorrect' => $answerCorrect
+			], 201);
 		}
 
 		/**
@@ -128,5 +143,21 @@
 			]);
 
 			return response()->json($answer->toJson(), 201);
+		}
+
+		/**
+		 * @param Request $request
+		 *
+		 * @return JsonResponse
+		 */
+		public function current(Request $request): JsonResponse {
+			/** @var Riddle $riddle */
+			$riddle = Riddle::where('active', 1)
+				->first();
+
+			return response()->json([
+				'riddle' => $riddle->toArray(),
+				'tries_made' => $riddle->getSubmissionCountByUser(auth()->user()),
+			]);
 		}
 	}

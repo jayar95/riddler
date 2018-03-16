@@ -1,6 +1,7 @@
 <?php
 	namespace App\Http\Controllers;
 
+	use App\Company;
 	use App\User;
 	use Illuminate\Foundation\Auth\RegistersUsers;
 	use Illuminate\Support\Facades\Validator;
@@ -28,9 +29,7 @@
 			$user = $this->create($request->all());
 			event(new Registered($user));
 
-			return response()->json([
-				'success' => 'true',
-			]);
+			return response()->json($user->toArray(), 201);
 		}
 
 		/**
@@ -56,10 +55,20 @@
 		 * @return \App\User
 		 */
 		protected function create(array $data) {
+			$company = Company::create([
+				'name' => $data['company_name'],
+				'address_line_one' => $data['address_line_one'],
+				'address_line_two' => $data['address_line_two'],
+				'city' => $data['city'],
+				'state' => $data['state'],
+				'zip_code' => $data['zip_code']
+			]);
+
 			return User::create([
 				'name' => $data['name'],
 				'email' => $data['email'],
 				'password' => bcrypt($data['password']),
+				'company' => $company->id,
 			]);
 		}
 	}

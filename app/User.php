@@ -17,6 +17,7 @@
 			'name',
 			'email',
 			'password',
+			'company'
 		];
 
 		/**
@@ -49,5 +50,12 @@
 		 */
 		public function getJWTCustomClaims() {
 			return [];
+		}
+
+		/**
+		 * @return \Illuminate\Database\Eloquent\Relations\HasOne
+		 */
+		public function company() {
+			return $this->hasOne('App\Company', 'company');
 		}
 	}

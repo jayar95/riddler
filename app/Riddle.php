@@ -28,6 +28,10 @@
 			return $this->hasOne('App\User', 'winner');
 		}
 
+		public function answers() {
+			return $this->hasMany('App\RiddleAnswer');
+		}
+
 		/**
 		 * @param User $user
 		 *
