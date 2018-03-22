@@ -12,11 +12,11 @@
 		 */
 		public function up() {
 			Schema::table('users', function(Blueprint $table) {
-				$table->integer('company');
+				$table->integer('company_id')->unsigned();
 				$table->text('position', 255);
 
 				//relationships'
-				$table->foreign('company')->references('id')->on('companies');
+				$table->foreign('company_id')->references('id')->on('companies');
 			});
 		}
 
