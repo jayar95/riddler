@@ -12,7 +12,7 @@
 		 */
 		public function up() {
 			Schema::table('users', function(Blueprint $table) {
-				$table->integer('company_id')->unsigned();
+				$table->integer('company_id')->unsigned()->nullable();
 				$table->text('position', 255);
 
 				//relationships'
