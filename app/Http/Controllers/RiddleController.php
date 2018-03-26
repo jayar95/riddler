@@ -76,6 +76,22 @@
 			return response()->json($riddle->toArray(), 200);
 		}
 
+		public function setActive(Request $request, Riddle $riddle): JsonResponse {
+			$oldRiddle = Riddle::where('active', true)->first();
+
+			if ($oldRiddle) {
+				$oldRiddle->active = false;
+
+				$oldRiddle->save();
+			}
+
+			$riddle->active = true;
+
+			$riddle->save();
+
+			return response()->json($riddle->toArray(), 200);
+		}
+
 		/**
 		 * @param Request $request
 		 * @param Riddle  $riddle
@@ -152,12 +168,20 @@
 		 */
 		public function current(Request $request): JsonResponse {
 			/** @var Riddle $riddle */
-			$riddle = Riddle::where('active', 1)
+			$riddle = Riddle::where('active', true)
 				->first();
 
-			return response()->json([
-				'riddle' => $riddle->toArray(),
-				'tries_made' => $riddle->getSubmissionCountByUser(auth()->user()),
-			]);
+			$user = auth()->user();
+
+			if ($riddle)
+					$response = [
+						'riddle' => $riddle->toArray(),
+						'attempts_made' => $riddle->getSubmissionCountByUser($user),
+						'submit_today' => $riddle->submittedToday($user)
+					];
+			else
+				$response = ['message' => 'No current riddles'];
+
+			return response()->json($response);
 		}
 	}

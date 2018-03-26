@@ -34,6 +34,7 @@
 		Route::get('user/list', 'UserController@list');
 		Route::get('user/registrations', 'UserController@registrations');
 		Route::put('user/{user}/approve', 'UserController@approve');
+		Route::put('user/{user}/set-staff', 'UserController@setStaff');
 		Route::get('user/{user}', 'UserController@read');
 		Route::delete('user/{user}', 'UserController@delete');
 		Route::put('user/{user}/update', 'UserController@update');

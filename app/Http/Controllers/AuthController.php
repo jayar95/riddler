@@ -1,6 +1,7 @@
 <?php
 	namespace App\Http\Controllers;
 
+	use App\User;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\JsonResponse;
 
@@ -28,7 +29,11 @@
 				'password' => $request->get('password'),
 			];
 
-			if (!$token = auth()->attempt($credentials))
+			$userType = ($user = User::where('email', $credentials['email'])->where('staff', false)->first()) ? 'user' : 'staff';
+			if ($user && !$user->approved && $userType !== 'staff')
+				$userType = 'unapproved';
+
+			if (!$token = auth()->claims(['aud' => $userType])->attempt($credentials))
 				return response()->json(['error' => 'Unauthorized'], 401);
 
 			return $this->respondWithToken($token);
@@ -69,6 +74,7 @@
 				'access_token' => $token,
 				'token_type' => 'bearer',
 				'expires_in' => auth()->factory()->getTTL() * 60,
+				'me' => auth()->user(),
 			]);
 		}
 	}

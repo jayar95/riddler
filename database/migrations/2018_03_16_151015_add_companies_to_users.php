@@ -13,7 +13,7 @@
 		public function up() {
 			Schema::table('users', function(Blueprint $table) {
 				$table->integer('company_id')->unsigned()->nullable();
-				$table->text('position', 255);
+				$table->text('position', 255)->nullable();
 
 				//relationships'
 				$table->foreign('company_id')->references('id')->on('companies');
@@ -26,9 +26,6 @@
 		 * @return void
 		 */
 		public function down() {
-            Schema::table('users', function(Blueprint $table) {
-                $table->dropForeign('company_id');
-                $table->dropColumn(['company_id', 'position']);
-            });
+
 		}
 	}

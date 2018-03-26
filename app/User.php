@@ -17,7 +17,8 @@
 			'name',
 			'email',
 			'password',
-			'company'
+			'company_id',
+			'staff'
 		];
 
 		/**
@@ -56,6 +57,6 @@
 		 * @return \Illuminate\Database\Eloquent\Relations\HasOne
 		 */
 		public function company() {
-			return $this->hasOne('App\Company', 'company');
+			return $this->hasOne('App\Company', 'id');
 		}
 	}

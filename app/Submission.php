@@ -11,7 +11,7 @@
 		protected $fillable = [
 			'user_id',
 			'answer',
-			'riddle_id'
+			'riddle_id',
 		];
 
 		/**
@@ -19,5 +19,12 @@
 		 */
 		public function user(): BelongsTo {
 			return $this->belongsTo('App\User');
+		}
+
+		/**
+		 * @return BelongsTo
+		 */
+		public function riddle(): BelongsTo {
+			return $this->belongsTo('App\Riddle');
 		}
 	}

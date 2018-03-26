@@ -14,6 +14,7 @@
 			'content',
 			'title',
 			'winner',
+			'active'
 		];
 
 		/**
@@ -32,6 +33,10 @@
 			return $this->hasMany('App\RiddleAnswer');
 		}
 
+		public function submissions() {
+			return $this->hasMany('App\Submission');
+		}
+
 		/**
 		 * @param User $user
 		 *
@@ -41,5 +46,27 @@
 			return Submission::where('riddle_id', $this->id)
 				->where('user_id', $user->id)
 				->count();
+		}
+
+		/**
+		 * @param User $user
+		 *
+		 * @return bool
+		 */
+		public function submittedToday(User $user): bool {
+			$submission = Submission::where('riddle_id', $this->id)
+				->where('user_id', $user->id)
+				->orderBy('id', 'desc')
+				->first();
+
+			if (!$submission)
+				return false;
+
+			$lastSubmit = (new \DateTime($submission->created_at))->format('Y-m-d');
+
+			$tz = new \DateTimeZone(config('app.timezone'));
+			$today = (new \DateTime())->setTimezone($tz)->format('Y-m-d');
+
+			return ($lastSubmit === $today);
 		}
 	}

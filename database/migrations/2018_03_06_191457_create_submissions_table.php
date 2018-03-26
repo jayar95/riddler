@@ -15,11 +15,13 @@
 				//structure
 				$table->increments('id');
 				$table->integer('user_id')->unsigned()->nullable(false);
+				$table->integer('riddle_id')->unsigned()->nullable(false);
 				$table->text('answer', 255)->nullable(false);
 				$table->timestamps();
 
 				//relationships
 				$table->foreign('user_id')->references('id')->on('users');
+				$table->foreign('riddle_id')->references('id')->on('riddles');
 			});
 		}
 

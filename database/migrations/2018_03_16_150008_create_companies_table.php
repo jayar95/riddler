@@ -15,7 +15,7 @@
 				$table->increments('id');
 				$table->text('company_name');
 				$table->text('address_line_one');
-				$table->text('address_line_two');
+				$table->text('address_line_two')->nullable();
 				$table->text('city');
 				$table->text('zip_code');
 				$table->text('state');

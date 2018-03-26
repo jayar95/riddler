@@ -16,8 +16,8 @@
 				$table->string('name');
 				$table->string('email')->unique();
 				$table->string('password');
-				$table->boolean('staff')->default(0);
-				$table->boolean('approved')->default(0);
+				$table->boolean('staff')->default(false);
+				$table->boolean('approved')->default(false);
 				$table->rememberToken();
 				$table->timestamps();
 			});
