@@ -14,7 +14,9 @@
 		 */
 		private $validateRiddleFields = [
 			'content' => 'required',
-			'title' => 'required'
+			'title' => 'required',
+			'max_submission_count' => 'required',
+			'answers' => 'required'
 		];
 
 		/**
@@ -42,7 +44,14 @@
 			$riddle = Riddle::create([
 				'content' => $request->get('content'),
 				'title' => $request->get('title'),
+				'max_submission_count' => $request->get('max_submission_count'),
 			]);
+
+			foreach ($request->get('answers') as $answer)
+				RiddleAnswer::create([
+					'riddle_id' => $riddle->id,
+					'answer' => $answer,
+				]);
 
 			return response()->json($riddle->toArray(), 201);
 		}

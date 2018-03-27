@@ -73,6 +73,7 @@
 				'email' => $data['email'],
 				'password' => bcrypt($data['password']),
 				'company_id' => $company->id,
+				'position' => $data['position']
 			]);
 		}
 	}

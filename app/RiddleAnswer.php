@@ -10,6 +10,8 @@
 			'answer',
 		];
 
+		public $timestamps = false;
+
 		/**
 		 * @return BelongsTo
 		 */

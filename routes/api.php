@@ -15,7 +15,7 @@
 	Route::post('register', 'RegisterController@register');
 
 	Route::get('riddle/list', function() {
-		return new RiddleResource(Riddle::all());
+		return RiddleResource::collection(Riddle::all());
 	});
 
 	Route::post('riddle', 'RiddleController@create')->middleware('staff.check');
@@ -27,6 +27,8 @@
 	Route::delete('riddle/{riddle}', 'RiddleController@delete')->middleware('staff.check');
 
 	Route::post('riddle/{riddle}/submit', 'RiddleController@createSubmission');
+
+	Route::put('riddle/{riddle}/set-active', 'RiddleController@setActive');
 
 	Route::group([
 		'middleware' => 'staff.check'

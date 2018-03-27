@@ -14,7 +14,8 @@
 			'content',
 			'title',
 			'winner',
-			'active'
+			'active',
+			'max_submission_count'
 		];
 
 		/**
@@ -35,6 +36,14 @@
 
 		public function submissions() {
 			return $this->hasMany('App\Submission');
+		}
+
+		/**
+		 * @return int
+		 */
+		public function getSubmissionCount(): int {
+			return Submission::where('riddle_id', $this->id)
+				 ->count();
 		}
 
 		/**

@@ -18,7 +18,8 @@
 			'email',
 			'password',
 			'company_id',
-			'staff'
+			'staff',
+			'position'
 		];
 
 		/**
