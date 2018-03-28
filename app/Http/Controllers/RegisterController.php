@@ -45,10 +45,6 @@
 				'email' => 'required|string|email|max:255|unique:users',
 				'password' => 'required|string|min:6',
                 'company_name' => 'required',
-                'address_line_one' => 'required',
-				'city' => 'required',
-				'state' => 'required',
-				'zip_code' => 'required|min:5|max:5'
 			]);
 		}
 
@@ -62,10 +58,6 @@
 		protected function create(array $data) {
 			$company = Company::create([
 				'company_name' => $data['company_name'],
-				'address_line_one' => $data['address_line_one'],
-				'city' => $data['city'],
-				'state' => $data['state'],
-				'zip_code' => $data['zip_code']
 			]);
 
 			return User::create([
