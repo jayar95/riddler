@@ -1,5 +1,4 @@
 <?php
-
 	namespace App\Events;
 
 	use App\Riddle;
@@ -17,15 +16,20 @@
 		/** @var User $winner */
 		public $winner;
 
+		public $answer;
+
 		/**
 		 * SuccessfulRiddleSubmission constructor.
 		 *
 		 * @param Riddle $riddle
 		 * @param User   $winner
+		 * @param string $answer
 		 */
-		public function __construct(Riddle $riddle, User $winner) {
+		public function __construct(Riddle $riddle, User $winner, $answer) {
 			$this->riddle = $riddle;
 
 			$this->winner = $winner;
+
+			$this->answer = $answer;
 		}
 	}

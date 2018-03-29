@@ -41,3 +41,5 @@
 		Route::delete('user/{user}', 'UserController@delete');
 		Route::put('user/{user}/update', 'UserController@update');
 	});
+
+	Route::get('user/{user}/submissions', 'UserController@submissions')->middleware('auth:api');

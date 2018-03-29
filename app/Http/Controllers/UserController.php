@@ -1,6 +1,8 @@
 <?php
 	namespace App\Http\Controllers;
 
+	use App\Exceptions\PermissionDeniedException;
+	use App\Http\Resources\SubmissionResource;
 	use App\Http\Resources\UserResource;
 	use App\Mail\RegistrationApproved;
 	use App\User;
@@ -69,5 +71,12 @@
 			$user->save();
 
 			return response()->json($user->toArray(), 200);
+		}
+
+		public function submissions(User $user) {
+			if ($user->id !== auth()->user()->id || !auth()->user()->staff)
+				throw new PermissionDeniedException();
+
+			return SubmissionResource::collection($user->submissions);
 		}
 	}

@@ -21,7 +21,7 @@
 				'max_submission_count' => $this->max_submission_count,
 				'title' => $this->title,
 				'updated_at' => $this->updated_at,
-				'winner' => $this->winner,
+				'winner' => new UserResource($this->winner),
 				'submission_count' => $this->getSubmissionCount()
 			];
 		}

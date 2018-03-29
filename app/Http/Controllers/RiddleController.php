@@ -140,7 +140,7 @@
 			if ($answers = $riddle->answers)
 				foreach ($answers as $riddleAnswer)
 					if ($riddleAnswer->answer === $submission->answer) {
-						event(new SuccessfulRiddleSubmission($riddle, auth()->user()));
+						event(new SuccessfulRiddleSubmission($riddle, auth()->user(), $submission->answer));
 
 						$answerCorrect = true;
 
@@ -192,5 +192,9 @@
 				$response = ['message' => 'No current riddles'];
 
 			return response()->json($response);
+		}
+
+		public function winners(): JsonResponse {
+
 		}
 	}

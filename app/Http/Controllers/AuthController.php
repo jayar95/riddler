@@ -1,6 +1,7 @@
 <?php
 	namespace App\Http\Controllers;
 
+	use App\Http\Resources\UserResource;
 	use App\User;
 	use Illuminate\Http\Request;
 	use Illuminate\Http\JsonResponse;
@@ -43,7 +44,7 @@
 		 * @return JsonResponse
 		 */
 		public function me(): JsonResponse {
-			return response()->json(auth()->user());
+			return response()->json(new UserResource(auth()->user()));
 		}
 
 		/**

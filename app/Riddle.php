@@ -23,11 +23,8 @@
 		 */
 		protected $dates = ['deleted_at'];
 
-		/**
-		 * @return \Illuminate\Database\Eloquent\Relations\HasOne
-		 */
 		public function winner() {
-			return $this->hasOne('App\User', 'winner');
+			return $this->hasOne('App\User', 'winner', 'id');
 		}
 
 		public function answers() {

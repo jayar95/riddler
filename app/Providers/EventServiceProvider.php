@@ -13,6 +13,10 @@
 		protected $listen = [
 			'App\Events\SuccessfulRiddleSubmission' => [
 				'App\Listeners\CompleteRiddle',
+				'App\Listeners\WinnerNotification'
+			],
+			'Illuminate\Auth\Events\Registered' => [
+				'App\Listeners\RegistrationNotification'
 			],
 		];
 
