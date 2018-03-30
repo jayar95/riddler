@@ -13,6 +13,12 @@
 		 * @return array
 		 */
 		public function toArray($request) {
-			return parent::toArray($request);
+			return [
+				'name' => $this->name,
+				'email' => $this->email,
+				'company' => $this->company,
+				'staff' => $this->staff,
+				'position' => $this->position,
+			];
 		}
 	}

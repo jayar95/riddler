@@ -24,7 +24,7 @@
 		protected $dates = ['deleted_at'];
 
 		public function winner() {
-			return $this->hasOne('App\User', 'winner', 'id');
+			return $this->belongsTo('App\User', 'winner_id');
 		}
 
 		public function answers() {

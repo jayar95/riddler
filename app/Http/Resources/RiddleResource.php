@@ -22,7 +22,8 @@
 				'title' => $this->title,
 				'updated_at' => $this->updated_at,
 				'winner' => new UserResource($this->winner),
-				'submission_count' => $this->getSubmissionCount()
+				'submission_count' => $this->getSubmissionCount(),
+				'answers' => $this->answers,
 			];
 		}
 	}

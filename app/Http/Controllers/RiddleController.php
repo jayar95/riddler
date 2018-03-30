@@ -2,6 +2,7 @@
 	namespace App\Http\Controllers;
 
 	use App\Events\SuccessfulRiddleSubmission;
+	use App\Http\Resources\RiddleResource;
 	use App\Riddle;
 	use App\RiddleAnswer;
 	use App\Submission;
@@ -63,7 +64,7 @@
 		 * @return JsonResponse
 		 */
 		public function read(Request $request, Riddle $riddle): JsonResponse {
-			return response()->json($riddle->toArray(), 200);
+			return response()->json(new RiddleResource($riddle), 200);
 		}
 
 		/**
@@ -192,9 +193,5 @@
 				$response = ['message' => 'No current riddles'];
 
 			return response()->json($response);
-		}
-
-		public function winners(): JsonResponse {
-
 		}
 	}

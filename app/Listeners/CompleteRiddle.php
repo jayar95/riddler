@@ -2,6 +2,7 @@
 	namespace App\Listeners;
 
 	use App\Events\SuccessfulRiddleSubmission;
+	use App\User;
 	use Illuminate\Queue\InteractsWithQueue;
 	use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -23,10 +24,11 @@
 		 * @return void
 		 */
 		public function handle(SuccessfulRiddleSubmission $event) {
+			/** @var User $winner */
 			$winner = $event->winner;
 			$riddle = $event->riddle;
 
-			$riddle->winner = $winner->id;
+			$riddle->winner_id = $winner->id;
 			$riddle->save();
 		}
 	}

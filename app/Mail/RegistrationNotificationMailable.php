@@ -13,7 +13,7 @@
 		/**
 		 * @var User
 		 */
-		protected $user;
+		public $user;
 
 		/**
 		 * Create a new message instance.

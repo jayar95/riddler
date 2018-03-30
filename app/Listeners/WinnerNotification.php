@@ -2,6 +2,7 @@
 	namespace App\Listeners;
 
 	use App\Events\SuccessfulRiddleSubmission;
+	use App\Mail\WinnerNotificationMailable;
 	use App\User;
 	use Illuminate\Support\Facades\Mail;
 

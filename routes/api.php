@@ -24,6 +24,8 @@
 
 	Route::get('riddle/{riddle}', 'RiddleController@read');
 
+	Route::put('riddle/{riddle}', 'RiddleController@update');
+
 	Route::delete('riddle/{riddle}', 'RiddleController@delete')->middleware('staff.check');
 
 	Route::post('riddle/{riddle}/submit', 'RiddleController@createSubmission');

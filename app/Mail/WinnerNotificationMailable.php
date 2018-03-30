@@ -14,18 +14,20 @@
 		/**
 		 * @var User
 		 */
-		protected $user;
+		public $user;
 
 		/**
 		 * @var Riddle
 		 */
-		protected $riddle;
+		public $riddle;
 
-		protected $answer;
+		public $answer;
 
 		/**
 		 * Create a new message instance.
 		 * @param User $user
+		 * @param Riddle $riddle
+		 * @param string $answer
 		 *
 		 * @return void
 		 */
